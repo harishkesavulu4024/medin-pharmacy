@@ -9,11 +9,9 @@ import com.medin.pharmacy.entities.User;
 
 @Mapper(componentModel = "spring", uses = {})
 public interface UserMapper  {
+		
+	User userDTOToUser(UserDTO userDTO);
 	
-	//UserMapper  INSTANCE=Mappers.getMapper(UserMapper.class);
-	
-	User userTouserDTO(UserDTO userDTO);
-	
-	UserDTO userDTOToUser(User user);
+	UserDTO userToUserDTO(User user);
 	
 }

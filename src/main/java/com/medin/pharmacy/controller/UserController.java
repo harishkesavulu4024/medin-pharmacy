@@ -28,6 +28,4 @@ public class UserController {
 	public List<UserDTO> getUserDetails(){
 		return userService.getAllUserDetails();
 	}
-	
-
 }

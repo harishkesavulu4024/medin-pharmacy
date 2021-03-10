@@ -30,7 +30,7 @@ public class UserServiceImpl implements IUserService,UserDetailsService {
 	@Transactional(readOnly = true)
 	public List<UserDTO> getAllUserDetails() {
 		List<User> userList = userRepository.findAll();
-		List<UserDTO> userDTOList = userList.stream().map(user -> userMapper.userDTOToUser(user))
+		List<UserDTO> userDTOList = userList.stream().map(user -> userMapper.userToUserDTO(user))
 				.collect(Collectors.toList());
 		return userDTOList;
 	}
@@ -43,8 +43,8 @@ public class UserServiceImpl implements IUserService,UserDetailsService {
 		if (existingUser != null) {
 			throw new BusinessException("User already exits,please try again");
 		}
-		User newUser = userRepository.save(userMapper.userTouserDTO(userDTO));
-		UserDTO newUserDTO = userMapper.userDTOToUser(newUser);
+		User newUser = userRepository.save(userMapper.userDTOToUser(userDTO));
+		UserDTO newUserDTO = userMapper.userToUserDTO(newUser);
 		return newUserDTO;
 	}
 
