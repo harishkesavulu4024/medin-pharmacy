@@ -5,10 +5,13 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import com.medin.pharmacy.enums.Status;
 
@@ -27,7 +30,13 @@ import lombok.ToString;
 @ToString(callSuper = true)
 @Entity
 @Table(name = "store")
-public class Store extends BaseEntity {
+@EntityListeners(AuditingEntityListener.class)
+public class Store extends BaseEntity<String> {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	@Column(name = "image_url", nullable = false)
 	private String imageUrl;

@@ -14,6 +14,6 @@ public interface IStoreService {
 
 	List<StoreDTO> getListOfActiveStores();
 
-	Boolean deleteStore(String idOrCode);
+	Boolean deleteStore(String code);
 
 }

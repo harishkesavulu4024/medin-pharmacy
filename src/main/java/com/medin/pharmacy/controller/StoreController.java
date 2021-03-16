@@ -39,9 +39,9 @@ public class StoreController {
 		return storeService.getListOfActiveStores();
 	}
 	
-	@RequestMapping(value = "/delete/{idOrCode}", method = RequestMethod.DELETE)
-	public Boolean deleteStore(@PathVariable String idOrCode) {
-		return storeService.deleteStore(idOrCode);
+	@RequestMapping(value = "/delete/{code}", method = RequestMethod.DELETE)
+	public Boolean deleteStore(@PathVariable String code) {
+		return storeService.deleteStore(code);
 	}
 
 }

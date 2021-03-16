@@ -87,11 +87,11 @@ public class StoreServiceImpl implements IStoreService {
 	}
 
 	@Override
-	public Boolean deleteStore(String idOrCode) {
-		Store store = storeRepository.findByStoreCodeOrId(idOrCode);
+	public Boolean deleteStore(String code) {
+		Store store = storeRepository.findByStoreCode(code);
 		if (store != null) {
 			store.setStatus(Status.INACTIVE);
-			storeRepository.delete(store);
+			storeRepository.save(store);
 			return true;
 		} else {
 			LOGGER.error("Store not found");

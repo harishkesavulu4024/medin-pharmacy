@@ -3,10 +3,13 @@ package com.medin.pharmacy.entities;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -19,7 +22,8 @@ import lombok.ToString;
 @Data
 @EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)
-public class StoreSchedule extends BaseEntity {
+@EntityListeners(AuditingEntityListener.class)
+public class StoreSchedule extends BaseEntity<String> {
 
 	/**
 	 * 
