@@ -37,6 +37,6 @@ public class CategoryDTO extends BaseDomainDTO {
 
 	private List<CategoryDTO> categories;
 
-	// private List<ItemDTO> items;
+	private List<ProductDTO> products;
 
 }

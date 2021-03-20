@@ -9,6 +9,7 @@ import javax.persistence.Table;
 
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import com.medin.pharmacy.enums.ProductUnit;
 import com.medin.pharmacy.enums.Status;
 
 import lombok.AllArgsConstructor;
@@ -33,7 +34,6 @@ public class Product extends BaseEntity<String>{/**
 	@Column(name="product_code",nullable=false)
 	private String productCode;
 	
-	
 	@Enumerated(EnumType.STRING)
 	private Status status;
 	
@@ -41,6 +41,25 @@ public class Product extends BaseEntity<String>{/**
     private String imageUrl;
 	
     private String description;
+    
+    @Column(name="product_name",nullable=false)
+	private String productName;
+    
+    @Column(name="total_quantity")
+    private Integer totalQuantity; 
+    
+    @Column(name="qunatity_per_pack")
+    private Integer quantityPerPack;
+    
+    @Enumerated(EnumType.STRING)
+    @Column(name="product_unit",nullable=false)
+    private ProductUnit productUnit;
+    
+    @Column(name="selling_price")
+    private Double sellingPrice;
+    
+    @Column(name="mrp_price")
+    private Double mrpPrice;
     
     
 }
