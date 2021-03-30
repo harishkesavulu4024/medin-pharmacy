@@ -13,6 +13,7 @@ import com.medin.pharmacy.enums.ProductUnit;
 import com.medin.pharmacy.enums.Status;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -25,6 +26,7 @@ import lombok.ToString;
 @ToString(callSuper = true)
 @Entity
 @Table(name = "product")
+@Builder
 @EntityListeners(AuditingEntityListener.class)
 public class Product extends BaseEntity<String>{/**
 	 * 

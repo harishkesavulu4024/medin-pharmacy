@@ -30,10 +30,10 @@ public class CategoryServieImpl implements ICategoryService {
 
 	@Autowired
 	private CategoryMapper categoryMapper;
-	
+
 	@Autowired
 	private StoreRepository storeRepository;
-	
+
 	@Autowired
 	private ICatalogRepository catalogRepository;
 
@@ -43,9 +43,9 @@ public class CategoryServieImpl implements ICategoryService {
 		String parentCode = categoryDTO.getParentCategoryCode();
 		String categoryCode = categoryDTO.getCategoryCode();
 		StoreDTO storeDTO = categoryDTO.getStore();
-		CatalogDTO catalogDTO=categoryDTO.getCatalog();
+		CatalogDTO catalogDTO = categoryDTO.getCatalog();
 		// Validate input
-	    validateStoreAndCatalogInput(storeDTO.getId(),catalogDTO.getId());
+		validateStoreAndCatalogInput(storeDTO.getId(), catalogDTO.getId());
 		Category existingCategory = categoryRepository.findByCategoryCodeAndStoreCode(categoryCode,
 				storeDTO.getStoreCode());
 		if (existingCategory != null) {
@@ -67,29 +67,31 @@ public class CategoryServieImpl implements ICategoryService {
 		Long storeId = Long.valueOf(requestPayload.get("storeId"));
 		Long catalogId = Long.valueOf(requestPayload.get("catalogId"));
 		// Validate input
-		validateStoreAndCatalogInput(storeId,catalogId);
+		validateStoreAndCatalogInput(storeId, catalogId);
 		List<Category> parentcategoryList = categoryRepository.findParentCategoriesByStoreIdAndCatalogId(storeId,
 				catalogId);
 		return parentcategoryList.stream().map(c -> categoryMapper.categoryToCategoryDTO(c))
 				.collect(Collectors.toList());
 	}
-	
-	private void validateStoreAndCatalogInput(Long storeId,Long catalogId){
-		Optional<Store> store=storeRepository.findById(storeId);
-		if(!store.isPresent()){
-			throw new BusinessException("Store not found with id "+storeId);
+
+	private void validateStoreAndCatalogInput(Long storeId, Long catalogId) {
+		Optional<Store> store = storeRepository.findById(storeId);
+		if (!store.isPresent()) {
+			throw new BusinessException("Store not found with id " + storeId);
 		}
-		Optional<Catalog> catalog=catalogRepository.findById(catalogId);
-		if(!catalog.isPresent()){
-			throw new BusinessException("Catalog not found with id "+catalogId);
+		Optional<Catalog> catalog = catalogRepository.findById(catalogId);
+		if (!catalog.isPresent()) {
+			throw new BusinessException("Catalog not found with id " + catalogId);
 		}
-		
+
 	}
 
 	@Override
 	@Transactional(readOnly = true)
-	public List<CategoryDTO> getCategoriesByCategoryId(String categoryId) {
-		return null;
+	public List<CategoryDTO> getChildCategoriesByParentCategoryId(String categoryId) {
+		List<CategoryDTO> childCategoryList = categoryRepository.findChildCategoriesByParentCategoryId(Long.valueOf(categoryId))
+				.stream().map(c -> categoryMapper.categoryToCategoryDTO(c)).collect(Collectors.toList());
+		return childCategoryList;
 	}
 
 }

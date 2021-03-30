@@ -2,6 +2,7 @@ package com.medin.pharmacy.dto;
 
 import java.util.List;
 
+import com.medin.pharmacy.entities.Address;
 import com.medin.pharmacy.enums.Status;
 
 import lombok.Data;
@@ -39,5 +40,7 @@ public class StoreDTO extends BaseDomainDTO{
 	private String description;
 
 	private List<StoreScheduleDTO> storcheules;
+	
+	private AddressDTO address;
 
 }

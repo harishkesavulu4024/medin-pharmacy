@@ -11,6 +11,6 @@ public interface ICategoryService {
 
 	List<CategoryDTO> getParentCategories(HashMap<String, String> requestPayload);
 
-	List<CategoryDTO> getCategoriesByCategoryId(String categoryId);
+	List<CategoryDTO> getChildCategoriesByParentCategoryId(String categoryId);
 
 }

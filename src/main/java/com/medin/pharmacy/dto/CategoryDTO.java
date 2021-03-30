@@ -35,8 +35,8 @@ public class CategoryDTO extends BaseDomainDTO {
 
 	private String imageUrl;
 
-	private List<CategoryDTO> categories;
-
-	private List<ProductDTO> products;
+//	private List<CategoryDTO> categories;
+//
+//	private List<ProductDTO> products;
 
 }

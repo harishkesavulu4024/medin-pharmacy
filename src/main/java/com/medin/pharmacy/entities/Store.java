@@ -8,6 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -64,6 +66,10 @@ public class Store extends BaseEntity<String> {
 	private String rating;
 
 	private String description;
+	
+	@ManyToOne(cascade=CascadeType.ALL)
+	@JoinColumn(name="address_id",nullable = true)
+	private Address address;
 
 	@Setter(AccessLevel.NONE)
 	@OneToMany(mappedBy = "store", cascade = CascadeType.ALL, orphanRemoval = true)

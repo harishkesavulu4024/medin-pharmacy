@@ -33,7 +33,7 @@ public class CategoryController {
 	
 	@PostMapping(value="/{categoryId}")
 	public List<CategoryDTO> getCategories(@PathVariable String categoryId){
-		return categoryService.getCategoriesByCategoryId(categoryId);
+		return categoryService.getChildCategoriesByParentCategoryId(categoryId);
 	}
 	
 

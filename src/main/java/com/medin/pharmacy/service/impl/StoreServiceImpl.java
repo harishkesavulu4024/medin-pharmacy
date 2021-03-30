@@ -9,14 +9,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.medin.pharmacy.dto.AddressDTO;
 import com.medin.pharmacy.dto.StoreDTO;
 import com.medin.pharmacy.dto.StoreScheduleDTO;
+import com.medin.pharmacy.entities.Address;
 import com.medin.pharmacy.entities.Store;
 import com.medin.pharmacy.entities.StoreSchedule;
+import com.medin.pharmacy.enums.AddressType;
 import com.medin.pharmacy.enums.Status;
+import com.medin.pharmacy.repository.AddressRepository;
 import com.medin.pharmacy.repository.StoreRepository;
 import com.medin.pharmacy.repository.StoreScheduleRepository;
 import com.medin.pharmacy.service.IStoreService;
+import com.medin.pharmacy.service.impl.mapper.AddressMapper;
 import com.medin.pharmacy.service.impl.mapper.StoreMapper;
 import com.medin.pharmacy.utils.BusinessException;
 
@@ -31,6 +36,10 @@ public class StoreServiceImpl implements IStoreService {
 	private StoreScheduleRepository storeScheduleRepository;
 	@Autowired
 	private StoreMapper storeMapper;
+	@Autowired
+	private AddressRepository addressRepository;
+	@Autowired
+	private AddressMapper addressMapper;
 
 	@Override
 	@Transactional
@@ -39,7 +48,12 @@ public class StoreServiceImpl implements IStoreService {
 		String storeName = storeDTO.getName();
 		Store existingStore = storeRepository.findByStoreCode(storeCode);
 		if (existingStore == null) {
-			List<StoreScheduleDTO> storeSchedules=storeDTO.getStorcheules();
+			AddressDTO addressDTO = storeDTO.getAddress();
+			// Setting address Type as business if not defined
+			if(addressDTO.getAddressType()==null){
+				addressDTO.setAddressType(AddressType.BUSINESS);
+			}
+			List<StoreScheduleDTO> storeSchedules = storeDTO.getStorcheules();
 			Store newStore = storeRepository.save(storeMapper.storeDTOTostore(storeDTO));
 			return storeMapper.storeToStoreDTO(newStore);
 		} else {
@@ -51,7 +65,7 @@ public class StoreServiceImpl implements IStoreService {
 	@Override
 	@Transactional
 	public StoreDTO updateStore(StoreDTO storeDTO) {
-		Long storeId=storeDTO.getId();
+		Long storeId = storeDTO.getId();
 		String storeCode = storeDTO.getStoreCode();
 		String storeName = storeDTO.getName();
 		Store existingStore = storeRepository.findByStoreCode(storeCode);
