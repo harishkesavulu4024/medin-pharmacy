@@ -1,8 +1,12 @@
 package com.medin.pharmacy.entities;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -20,24 +24,26 @@ import lombok.ToString;
 @EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)
 @Entity
-@Table(name = "customer")
+@Table(name = "loyalty_card")
 @Builder
 @EntityListeners(AuditingEntityListener.class)
-public class Customer extends BaseEntity<String> {/**
-	 * 
-	 */
+public class LoyaltyCard extends BaseEntity<String> {
+	/**
+	* 
+	*/
 	private static final long serialVersionUID = 1L;
-	
-	@Column(name="mobile_number",unique=true,nullable = false)
-	private String mobileNumber;
-	
-	private String name;
-	
-	private String email;
-	
-	@Column(nullable = false, columnDefinition = "varchar(40) default 'ACTIVE'")
-	private String status;
-	
-	
+
+	@Column(name = "loyalty_card_code", nullable = false,unique=true)
+	private String loyaltyCardCode;
+
+	@Column(name = "description", nullable = false)
+	private String description;
+
+	@Column(name = "loyalty_card_name", nullable = false)
+	private String loyaltyCardName;
+
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "currency_id")
+	private Currency currency;
 
 }

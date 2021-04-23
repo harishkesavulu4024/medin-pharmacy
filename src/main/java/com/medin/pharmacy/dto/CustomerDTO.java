@@ -18,4 +18,6 @@ public class CustomerDTO extends BaseDomainDTO {
 	private String name;
 
 	private String email;
+	
+	private String status;
 }

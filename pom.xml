@@ -94,6 +94,13 @@
 			<artifactId>lombok</artifactId>
 			<optional>true</optional>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/commons-validator/commons-validator -->
+		<dependency>
+			<groupId>commons-validator</groupId>
+			<artifactId>commons-validator</artifactId>
+			<version>1.4.0</version>
+		</dependency>
+
 		<!-- Rabbit MQ -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

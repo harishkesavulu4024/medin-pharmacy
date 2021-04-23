@@ -1,5 +1,6 @@
 package com.medin.pharmacy.dto;
 
+import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -7,19 +8,18 @@ import lombok.ToString;
 @Data
 @EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)
-public class UserDTO extends BaseDomainDTO {
-
+public class LoyaltyCardDTO extends BaseDomainDTO {
 	/**
-	 * 
-	 */
+	* 
+	*/
 	private static final long serialVersionUID = 1L;
 
-	private String userName;
+	private String loyaltyCardCode;
 
-	private String password;
+	private String description;
 
-	private String email;
+	private String loyaltyCardName;
 
-	private String status;
+	private CurrencyDTO currency;
 
 }

@@ -20,24 +20,21 @@ import lombok.ToString;
 @EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)
 @Entity
-@Table(name = "customer")
+@Table(name = "currency")
 @Builder
 @EntityListeners(AuditingEntityListener.class)
-public class Customer extends BaseEntity<String> {/**
-	 * 
-	 */
+public class Currency extends BaseEntity<String> {
+	/**
+	* 
+	*/
 	private static final long serialVersionUID = 1L;
-	
-	@Column(name="mobile_number",unique=true,nullable = false)
-	private String mobileNumber;
-	
+
+	@Column(name = "currency_code", nullable = false, unique = true)
+	private String currencyCode;
+
 	private String name;
-	
-	private String email;
-	
-	@Column(nullable = false, columnDefinition = "varchar(40) default 'ACTIVE'")
-	private String status;
-	
-	
+
+	@Column(name = "conversion_ratio", nullable = false)
+	private Double conversionRatio;
 
 }
