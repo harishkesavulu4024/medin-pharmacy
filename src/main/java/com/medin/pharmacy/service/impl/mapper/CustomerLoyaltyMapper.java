@@ -18,14 +18,14 @@ public interface CustomerLoyaltyMapper {
 	CustomerLoyaltyDTO CustomerLoyaltyToCustomerLoyaltyDTO(CustomerLoyalty customerLoyalty);
 
 	
-	default CustomerLoyalty fromId(final Long id) {
-
-        if (id == null) {
-            return null;
-        }
-        final CustomerLoyalty customerLoyalty=new CustomerLoyalty();
-        customerLoyalty.setId(id);
-        return customerLoyalty;
-    }
+//	default CustomerLoyalty fromId(final Long id) {
+//
+//        if (id == null) {
+//            return null;
+//        }
+//        final CustomerLoyalty customerLoyalty=new CustomerLoyalty();
+//        customerLoyalty.setId(id);
+//        return customerLoyalty;
+//    }
 
 }

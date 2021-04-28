@@ -30,8 +30,6 @@ public class CustomerLoyaltyServiceImpl implements ICustomerLoyaltyService {
 	@Override
 	@Transactional
 	public CustomerLoyaltyDTO createCustomerLoyalty(CustomerLoyalty customerLoyalty) {
-//		CustomerLoyalty customerLoyalty = 
-//				customerLoyaltyMapper.CustomerLoyaltyDTOToCustomerLoyalty(customerLoyaltyDTO);
 		CustomerLoyalty dbCustomerLoyalty = customerLoyaltyRepository.save(customerLoyalty);
 		CustomerLoyaltyDTO customerLoyaltyDTO=customerLoyaltyMapper.CustomerLoyaltyToCustomerLoyaltyDTO(dbCustomerLoyalty);
 		return customerLoyaltyDTO;

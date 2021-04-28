@@ -1,7 +1,5 @@
 package com.medin.pharmacy.entities;
 
-import static javax.persistence.TemporalType.TIMESTAMP;
-
 import java.io.Serializable;
 import java.util.Date;
 
@@ -22,6 +20,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import lombok.Data;
 
+@SuppressWarnings("hiding")
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
 @Data

@@ -11,4 +11,6 @@ public interface IProductService {
 
 	List<ProductCategoryDTO> getProductDetailsByCategoryId(String categoryId);
 
+	ProductDTO getProductById(String productId);
+
 }

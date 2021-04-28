@@ -3,11 +3,25 @@ package com.medin.pharmacy.dto;
 import java.io.Serializable;
 import java.util.Date;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
+import lombok.experimental.SuperBuilder;
 
 @Data
-@SuppressWarnings(value = "serial")
+@AllArgsConstructor
+@NoArgsConstructor
+@EqualsAndHashCode
+@ToString
 public abstract class BaseDomainDTO implements Serializable {
+	
+	/**
+	* 
+	*/
+	private static final long serialVersionUID = 1L;
+	
 
 	private Long id;
 	
@@ -18,14 +32,5 @@ public abstract class BaseDomainDTO implements Serializable {
 	private Date createdTime;
 	
 	private Date modifiedTime;
-
-	public BaseDomainDTO() {
-		super();
-	}
-
-	public BaseDomainDTO(Long id) {
-		super();
-		this.id = id;
-	}
 
 }

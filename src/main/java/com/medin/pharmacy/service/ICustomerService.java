@@ -12,4 +12,6 @@ public interface ICustomerService {
 
 	List<CustomerDTO> getActiveCustomerDetails();
 
+	CustomerDTO getCustomerById(Long customerId);
+
 }

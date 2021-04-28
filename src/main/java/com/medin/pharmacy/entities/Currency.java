@@ -13,6 +13,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import lombok.experimental.SuperBuilder;
 
 @Data
 @AllArgsConstructor
@@ -21,7 +22,6 @@ import lombok.ToString;
 @ToString(callSuper = true)
 @Entity
 @Table(name = "currency")
-@Builder
 @EntityListeners(AuditingEntityListener.class)
 public class Currency extends BaseEntity<String> {
 	/**

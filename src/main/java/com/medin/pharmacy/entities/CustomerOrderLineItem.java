@@ -11,11 +11,11 @@ import javax.persistence.Table;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import lombok.experimental.SuperBuilder;
 
 @Data
 @AllArgsConstructor
@@ -23,7 +23,6 @@ import lombok.ToString;
 @EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)
 @Entity
-@Builder
 @EntityListeners(AuditingEntityListener.class)
 @Table(name = "customer_order_line_item")
 public class CustomerOrderLineItem extends BaseEntity<String> {
@@ -37,7 +36,7 @@ public class CustomerOrderLineItem extends BaseEntity<String> {
 	private CustomerOrder customerOrder;
 
 	@Column(name = "quantity")
-	private Long qunatity;
+	private Long quantity;
 	
 	@Column(name = "total_line_item_tax")
 	private Double totalLineItemTax;
@@ -54,8 +53,7 @@ public class CustomerOrderLineItem extends BaseEntity<String> {
 	@Column(name = "product_price")
 	private Double productPrice;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "product_id", nullable = false)
-	private Product product;
+	@Column(name = "product_id", nullable = false)
+	private String productId;
 
 }

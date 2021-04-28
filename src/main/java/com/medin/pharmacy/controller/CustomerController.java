@@ -11,36 +11,47 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.medin.pharmacy.dto.CustomerDTO;
+import com.medin.pharmacy.dto.CustomerLoyaltyDTO;
+import com.medin.pharmacy.service.ICustomerLoyaltyService;
 import com.medin.pharmacy.service.ICustomerService;
 import com.medin.pharmacy.utils.CustomerValidationUtil;
 
 @RestController
-@RequestMapping(value="/customer")
+@RequestMapping(value = "/customer")
 public class CustomerController {
-	
-    @Autowired
+
+	@Autowired
 	private ICustomerService customerService;
-    
-    @PostMapping(value="/add")
-    public CustomerDTO addCustomer(@RequestBody CustomerDTO customerDTO){
-    	String mobileNumber=customerDTO.getMobileNumber();
-    	// Validate phoneNumber 
-    	CustomerValidationUtil.validateMobileNumberFormat(mobileNumber);
-    	return customerService.addCustomerDetails(customerDTO);
-    }
-    
-    @GetMapping(value="/{mobileNumber}")
-    public CustomerDTO getCustomerDetailsByPhoneNumber(@PathVariable("mobileNumber") String mobileNumber){
-    	// Validate phoneNumber 
-    	CustomerValidationUtil.validateMobileNumberFormat(mobileNumber);
-    	return customerService.getCustomerDetailsByPhoneNumber(mobileNumber);
-    }
-    
-    @GetMapping(value="/list")
-    public List<CustomerDTO> getActiveCustomerDetails(){
-    	return customerService.getActiveCustomerDetails();
-    }
-    
-    
-	
+
+	@Autowired
+	private ICustomerLoyaltyService customerLoyaltyService;
+
+	@PostMapping(value = "/add")
+	public CustomerDTO addCustomer(@RequestBody CustomerDTO customerDTO) {
+		String mobileNumber = customerDTO.getMobileNumber();
+		// Validate phoneNumber
+		CustomerValidationUtil.validateMobileNumberFormat(mobileNumber);
+		return customerService.addCustomerDetails(customerDTO);
+	}
+
+	@GetMapping(value = "/{mobileNumber}")
+	public CustomerDTO getCustomerDetailsByPhoneNumber(@PathVariable("mobileNumber") String mobileNumber) {
+		// Validate phoneNumber
+		CustomerValidationUtil.validateMobileNumberFormat(mobileNumber);
+		return customerService.getCustomerDetailsByPhoneNumber(mobileNumber);
+	}
+
+	@GetMapping(value = "/list")
+	public List<CustomerDTO> getActiveCustomerDetails() {
+		return customerService.getActiveCustomerDetails();
+	}
+
+	@GetMapping(value = "/loyalty/{mobileNumber}")
+	public CustomerLoyaltyDTO getCustomerLoyaltyDetailsByPhoneNumber(
+			@PathVariable("mobileNumber") String mobileNumber) {
+		// Validate phoneNumber
+		CustomerValidationUtil.validateMobileNumberFormat(mobileNumber);
+		return customerLoyaltyService.getCustomerLoyaltyDetailsByMobileNumber(mobileNumber);
+	}
+
 }

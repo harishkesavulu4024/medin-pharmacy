@@ -70,7 +70,8 @@ public class ProductServiceImpl implements IProductService {
 		if (!categoryData.isPresent())
 			throw new BusinessException("Category not found with id _" + categoryId);
 		Category category = categoryData.get();
-		List<Category> childCategories = categoryRepository.findChildCategoriesByParentCategoryId(Long.valueOf(categoryId));
+		List<Category> childCategories = categoryRepository
+				.findChildCategoriesByParentCategoryId(Long.valueOf(categoryId));
 		if (childCategories != null && !childCategories.isEmpty()) {
 			List<ProductCategory> productCategories = productCategorygRepository
 					.findProductcategoriesByParentcategoryId(Long.valueOf(categoryId));
@@ -84,6 +85,17 @@ public class ProductServiceImpl implements IProductService {
 			throw new BusinessException("No child category Category found");
 		}
 		return null;
+	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public ProductDTO getProductById(String productId) {
+		ProductDTO productDTO = null;
+		Optional<Product> dbProduct = productRepository.findById(Long.valueOf(productId));
+		if (dbProduct.isPresent()) {
+			productDTO = productMapper.productToProductDTO(dbProduct.get());
+		}
+		return productDTO;
 	}
 
 }

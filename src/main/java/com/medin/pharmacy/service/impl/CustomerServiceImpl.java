@@ -1,6 +1,7 @@
 package com.medin.pharmacy.service.impl;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +35,7 @@ public class CustomerServiceImpl implements ICustomerService {
 
 	@Autowired
 	private ICustomerLoyaltyService customerLoyaltyService;
-	
+
 	@Autowired
 	private ILoyaltyCardService loyaltyCardService;
 
@@ -52,13 +53,11 @@ public class CustomerServiceImpl implements ICustomerService {
 		Customer dbCustomer = customerRepository.save(customerMapper.customerDTOToCustomer(customerDTO));
 		CustomerDTO dbCustomerDTO = customerMapper.customerToCustomerDTO(dbCustomer);
 		// checking customer loyalty enabled or not
-		if(isLoyaltyEnabled){
-			//setting 0 points by default for all customers
-			CustomerLoyaltyDTO customerLoyaltyDTO=CustomerLoyaltyDTO.builder().
-					customer(dbCustomerDTO).points(0l).build();
-			//CustomerLoyaltyDTO dbcustomerLoyaltyDTO=customerLoyaltyService.createCustomerLoyalty(customerLoyaltyDTO);
-			//CustomerLoyalty customerLoyalty=CustomerLoyalty.builder().customer(dbCustomer).points(0l).build();
-			CustomerLoyaltyDTO dbcustomerLoyaltyDTO=customerLoyaltyService.createCustomerLoyalty(customerLoyaltyDTO);
+		if (isLoyaltyEnabled) {
+			// setting 0 points by default for all customers
+			CustomerLoyaltyDTO customerLoyaltyDTO = CustomerLoyaltyDTO.builder().customer(dbCustomerDTO).points(0l)
+					.build();
+			CustomerLoyaltyDTO dbcustomerLoyaltyDTO = customerLoyaltyService.createCustomerLoyalty(customerLoyaltyDTO);
 		}
 		return dbCustomerDTO;
 	}
@@ -81,6 +80,17 @@ public class CustomerServiceImpl implements ICustomerService {
 				.filter(c -> c.getStatus().equals("ACTIVE")).map(c -> customerMapper.customerToCustomerDTO(c))
 				.collect(Collectors.toList());
 		return activeCustomerList;
+	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public CustomerDTO getCustomerById(Long customerId) {
+		CustomerDTO existingCustomerDTO = null;
+		Optional<Customer> existingCustomerData = customerRepository.findById(customerId);
+		if (existingCustomerData.isPresent()) {
+			existingCustomerDTO = customerMapper.customerToCustomerDTO(existingCustomerData.get());
+		}
+		return existingCustomerDTO;
 	}
 
 }
