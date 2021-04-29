@@ -31,7 +31,7 @@ public class CustomerLoyaltyServiceImpl implements ICustomerLoyaltyService {
 	@Transactional
 	public CustomerLoyaltyDTO createCustomerLoyalty(CustomerLoyalty customerLoyalty) {
 		CustomerLoyalty dbCustomerLoyalty = customerLoyaltyRepository.save(customerLoyalty);
-		CustomerLoyaltyDTO customerLoyaltyDTO=customerLoyaltyMapper.CustomerLoyaltyToCustomerLoyaltyDTO(dbCustomerLoyalty);
+		CustomerLoyaltyDTO customerLoyaltyDTO=customerLoyaltyMapper.customerLoyaltyToCustomerLoyaltyDTO(dbCustomerLoyalty);
 		return customerLoyaltyDTO;
 	}
 	
@@ -41,9 +41,9 @@ public class CustomerLoyaltyServiceImpl implements ICustomerLoyaltyService {
 		LoyaltyCardDTO loyaltyCardDTO=loyaltyCardService.getDefaultLoyaltyCard();
 		customerLoyaltyDTO.setLoyaltyCard(loyaltyCardDTO);
 		CustomerLoyalty customerLoyalty = 
-				customerLoyaltyMapper.CustomerLoyaltyDTOToCustomerLoyalty(customerLoyaltyDTO);
+				customerLoyaltyMapper.customerLoyaltyDTOToCustomerLoyalty(customerLoyaltyDTO);
 		CustomerLoyalty dbCustomerLoyalty = customerLoyaltyRepository.save(customerLoyalty);
-		CustomerLoyaltyDTO cdbCustomerLoyaltyDTO=customerLoyaltyMapper.CustomerLoyaltyToCustomerLoyaltyDTO(dbCustomerLoyalty);
+		CustomerLoyaltyDTO cdbCustomerLoyaltyDTO=customerLoyaltyMapper.customerLoyaltyToCustomerLoyaltyDTO(dbCustomerLoyalty);
 		return cdbCustomerLoyaltyDTO;
 	}
 
@@ -54,7 +54,18 @@ public class CustomerLoyaltyServiceImpl implements ICustomerLoyaltyService {
 		if(customerLoyalty==null){
 			throw new BusinessException("Customer Loyalty not found :"+mobileNumber);
 		}
-		CustomerLoyaltyDTO customerLoyaltyDTO=customerLoyaltyMapper.CustomerLoyaltyToCustomerLoyaltyDTO(customerLoyalty);
+		CustomerLoyaltyDTO customerLoyaltyDTO=customerLoyaltyMapper.customerLoyaltyToCustomerLoyaltyDTO(customerLoyalty);
+		return customerLoyaltyDTO;
+	}
+	
+	@Override
+	@Transactional(readOnly = true)
+	public CustomerLoyaltyDTO getCustomerLoyaltyDetailsByCustomerId(Long customnerId) {
+		CustomerLoyalty customerLoyalty = customerLoyaltyRepository.findByCustomerId(customnerId);
+		if(customerLoyalty==null){
+			throw new BusinessException("Customer Loyalty not found :"+customnerId);
+		}
+		CustomerLoyaltyDTO customerLoyaltyDTO=customerLoyaltyMapper.customerLoyaltyToCustomerLoyaltyDTO(customerLoyalty);
 		return customerLoyaltyDTO;
 	}
 

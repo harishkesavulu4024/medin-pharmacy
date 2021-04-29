@@ -11,4 +11,6 @@ public interface ICustomerLoyaltyService {
 
 	CustomerLoyaltyDTO createCustomerLoyalty(CustomerLoyaltyDTO customerLoyaltyDTO);
 
+	CustomerLoyaltyDTO getCustomerLoyaltyDetailsByCustomerId(Long customnerId);
+
 }

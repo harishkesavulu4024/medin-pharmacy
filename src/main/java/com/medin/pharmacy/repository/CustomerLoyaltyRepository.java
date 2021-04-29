@@ -12,4 +12,6 @@ public interface CustomerLoyaltyRepository extends JpaRepository<CustomerLoyalty
 	@Query("select customerLoyalty from CustomerLoyalty customerLoyalty where customerLoyalty.customer.mobileNumber=:mobileNumber")
 	CustomerLoyalty findCustomerLoyaltyByMobileNumber(String mobileNumber);
 
+	CustomerLoyalty findByCustomerId(Long customnerId);
+
 }

@@ -97,5 +97,30 @@ public class ProductServiceImpl implements IProductService {
 		}
 		return productDTO;
 	}
+	
+	
+	@Override
+	@Transactional
+	public ProductDTO updateProduct(ProductDTO productDTO) {
+		String categoryCode = productDTO.getCategoryCode();
+		String productCode = productDTO.getProductCode();
+		Long ProductId=productDTO.getId();
+//		Category category = categoryRepository.findByCategoryCode(categoryCode);
+//		if (category == null) {
+//			throw new BusinessException("Category not found with code _" + categoryCode);
+//		}
+//		ProductCategory dbProductCategory = productCategorygRepository.findByProductCodeAndCategoryCode(productCode,
+//				categoryCode);
+//		if (dbProductCategory != null) {
+//			throw new BusinessException("Product already exits in the same category");
+//		}
+		// update product
+		Product product = productRepository.save(productMapper.productDTOTOProduct(productDTO));
+		// adding product category
+//		ProductCategory productCategory = productCategorygRepository
+//				.save(ProductCategory.builder().category(category).product(product).build());
+		return productMapper.productToProductDTO(product);
+	}
+
 
 }

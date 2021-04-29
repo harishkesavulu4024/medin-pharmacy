@@ -55,8 +55,9 @@ public class CustomerServiceImpl implements ICustomerService {
 		// checking customer loyalty enabled or not
 		if (isLoyaltyEnabled) {
 			// setting 0 points by default for all customers
-			CustomerLoyaltyDTO customerLoyaltyDTO = CustomerLoyaltyDTO.builder().customer(dbCustomerDTO).points(0l)
-					.build();
+			CustomerLoyaltyDTO customerLoyaltyDTO =new CustomerLoyaltyDTO();
+			customerLoyaltyDTO.setCustomer(dbCustomerDTO);
+			customerLoyaltyDTO.setPoints(0l);
 			CustomerLoyaltyDTO dbcustomerLoyaltyDTO = customerLoyaltyService.createCustomerLoyalty(customerLoyaltyDTO);
 		}
 		return dbCustomerDTO;

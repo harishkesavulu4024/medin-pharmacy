@@ -11,11 +11,11 @@ import com.medin.pharmacy.entities.CustomerLoyalty;
 public interface CustomerLoyaltyMapper {
 
 //	@Mapping(source = "customerLoyaltyDTO.customer", target = "customer")
-	CustomerLoyalty CustomerLoyaltyDTOToCustomerLoyalty(CustomerLoyaltyDTO customerLoyaltyDTO
+	CustomerLoyalty customerLoyaltyDTOToCustomerLoyalty(CustomerLoyaltyDTO customerLoyaltyDTO
 			//CustomerDTO customer
 			);
 
-	CustomerLoyaltyDTO CustomerLoyaltyToCustomerLoyaltyDTO(CustomerLoyalty customerLoyalty);
+	CustomerLoyaltyDTO customerLoyaltyToCustomerLoyaltyDTO(CustomerLoyalty customerLoyalty);
 
 	
 //	default CustomerLoyalty fromId(final Long id) {
