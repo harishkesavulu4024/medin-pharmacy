@@ -7,4 +7,8 @@ public interface ILoyaltyTransactionService {
 
 	LoyaltyResponseDTO earnableBurnablePoints(CustomerOrderDTO customerOrderDTO);
 
+	LoyaltyResponseDTO processLoyaltyIssuance(CustomerOrderDTO dbCustomerOrderDTO);
+
+	LoyaltyResponseDTO processLoyaltyRedemption(CustomerOrderDTO customerOrderDTO);
+
 }

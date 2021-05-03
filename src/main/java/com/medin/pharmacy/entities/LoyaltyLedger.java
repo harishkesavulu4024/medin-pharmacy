@@ -5,6 +5,8 @@ import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -13,6 +15,8 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
+import com.medin.pharmacy.enums.LedgerType;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -42,6 +46,9 @@ public class LoyaltyLedger extends BaseEntity<String> {
 	private Long balance;
 
 	private String remarks;
+	
+	@Enumerated(EnumType.STRING)
+	private LedgerType type;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "expiry_date")
@@ -53,5 +60,8 @@ public class LoyaltyLedger extends BaseEntity<String> {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "loyalty_transaction_id", nullable = false)
 	private LoyaltyTransaction loyaltyTransaction;
+	
+	@Column(name = "customer_id", nullable = false)
+	private Long customerId;
 
 }

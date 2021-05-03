@@ -2,6 +2,8 @@ package com.medin.pharmacy.dto;
 
 import java.util.Date;
 
+import com.medin.pharmacy.enums.LedgerType;
+
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -22,12 +24,16 @@ public class LoyaltyLedgerDTO extends BaseDomainDTO {
 	private Long balance;
 
 	private String remarks;
+	
+	private LedgerType type;
 
 	private Date expiryDate;
 	
 	private String details;
 
 	private LoyaltyTransactionDTO loyaltyTransaction;
+	
+	private Long customerId;
 
 
 }

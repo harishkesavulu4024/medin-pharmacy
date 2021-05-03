@@ -13,5 +13,9 @@ public class ConfirmOrderDTO {
 	
 	private Long customerId;
 	
+	private long pointsToRedeem;
+	
+	private long pointsToEarn;
+	
 
 }

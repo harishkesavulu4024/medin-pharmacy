@@ -39,4 +39,6 @@ public class CustomerOrderDTO extends BaseDomainDTO {
 	private List<CustomerOrderLineItemDTO> orderLineItems;
 	
 	private LoyaltyResponseDTO loyaltyData;
+	
+	private long pointsToRedeem;
 }

@@ -76,7 +76,8 @@ public class CustomerOrderServiceImpl implements ICustomerOrderService {
 		CustomerOrderDTO dbCustomerOrderDTO = customerOrderMapper.customerOrderToCustomerOrderDTO(dbCustomerOrder);
 		// check if loyalty enabled
 		if (isLoyaltyEnabled) {
-			LoyaltyResponseDTO loyaltyResponseDTO=loyaltyTransactionService.earnableBurnablePoints(dbCustomerOrderDTO);
+			LoyaltyResponseDTO loyaltyResponseDTO = loyaltyTransactionService
+					.earnableBurnablePoints(dbCustomerOrderDTO);
 			dbCustomerOrderDTO.setLoyaltyData(loyaltyResponseDTO);
 		}
 		return dbCustomerOrderDTO;
@@ -109,7 +110,8 @@ public class CustomerOrderServiceImpl implements ICustomerOrderService {
 			dbCustomerOrderDTO = customerOrderMapper.customerOrderToCustomerOrderDTO(customerOrder);
 			// check if loyalty enabled
 			if (isLoyaltyEnabled) {
-				LoyaltyResponseDTO loyaltyResponseDTO=loyaltyTransactionService.earnableBurnablePoints(dbCustomerOrderDTO);
+				LoyaltyResponseDTO loyaltyResponseDTO = loyaltyTransactionService
+						.earnableBurnablePoints(dbCustomerOrderDTO);
 				dbCustomerOrderDTO.setLoyaltyData(loyaltyResponseDTO);
 			}
 		} else {
@@ -229,6 +231,8 @@ public class CustomerOrderServiceImpl implements ICustomerOrderService {
 		CustomerOrderDTO dbCustomerOrderDTO = null;
 		Long customerOrderId = confirmOrderDTO.getOrderId();
 		Long customerId = confirmOrderDTO.getCustomerId();
+		long pointsToRedeem = confirmOrderDTO.getPointsToRedeem();
+		long pointsToEarn = confirmOrderDTO.getPointsToEarn();
 		CustomerOrder dbCustomerOrder = customerOrderRepository.findByIdAndCustomerId(customerOrderId, customerId);
 		if (dbCustomerOrder != null) {
 			String orderStatus = dbCustomerOrder.getOrderStatus().toString();
@@ -254,6 +258,20 @@ public class CustomerOrderServiceImpl implements ICustomerOrderService {
 					// update order created status
 					CustomerOrder updateCustomerOrder = customerOrderRepository.save(dbCustomerOrder);
 					dbCustomerOrderDTO = customerOrderMapper.customerOrderToCustomerOrderDTO(updateCustomerOrder);
+					// Earn and burn happen only if loyaltty enabled
+					if (isLoyaltyEnabled) {
+						// Redeem points from order
+						if (pointsToRedeem > 0) {
+							LoyaltyResponseDTO loyaltyRedempResponseDTO = loyaltyTransactionService
+									.processLoyaltyRedemption(dbCustomerOrderDTO);
+							dbCustomerOrderDTO.setPointsToRedeem((long) loyaltyRedempResponseDTO.getBurnedPoints());
+						}
+						// Earn points of an order
+						if (pointsToEarn > 0) {
+							LoyaltyResponseDTO loyaltyRedempResponseDTO = loyaltyTransactionService
+									.processLoyaltyIssuance(dbCustomerOrderDTO);
+						}
+					}
 				}
 			} else {
 				throw new BusinessException("Customer order already confirmed,please create new order");

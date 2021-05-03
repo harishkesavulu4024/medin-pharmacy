@@ -8,4 +8,6 @@ import com.medin.pharmacy.entities.LoyaltyTransaction;
 @Repository
 public interface LoyaltyTransactionRepository extends JpaRepository<LoyaltyTransaction, Long>{
 
+	LoyaltyTransaction findByLoyaltyReferenceId(String orderRefernceId);
+
 }
